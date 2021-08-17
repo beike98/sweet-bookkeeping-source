@@ -36,6 +36,7 @@
         </van-row>
       </div>
     </div>
+    {{this.$store.state.valueList}}
   </div>
 </template>
 

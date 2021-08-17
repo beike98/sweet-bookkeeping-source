@@ -2,45 +2,44 @@
   <div>
     <van-form @submit="onSubmit">
       <!--    单选框⬇️-->
-      <van-field name="收支类型">
+      <van-field name="myType">
         <template #input>
           <van-radio-group v-model="radio" direction="horizontal" class="radio">
-            <van-radio name="支出">支出</van-radio>
-            <van-radio name="收入">收入</van-radio>
+            <van-radio name="-">支出</van-radio>
+            <van-radio name="+">收入</van-radio>
           </van-radio-group>
         </template>
       </van-field>
       <!--    日期框⬇️-->
       <van-field
           readonly
-          clickable
           required
-          name="日期"
+          name="myDate"
           :value="value"
           label="日期"
           placeholder="点击选择日期"
           @click="showCalendar = true"
-          error
       />
       <van-calendar v-model="showCalendar" :min-date="mindate" @confirm="onConfirm"/>
       <!--    金额框⬇️-->
       <van-cell-group>
         <van-field
-            @touchstart.native.stop="show = true"
             readonly
-            clickable
-            name="金额"
+            @touchstart.native.stop="show = true"
+            name="myMoney"
             label="金额"
-            :value="money"
+            :value="money1"
             placeholder="请输入金额"
             required
-            error/>
+            clearable
+        />
       </van-cell-group>
       <van-number-keyboard
           :show="show"
           v-model="money"
           theme="custom"
           extra-key="."
+          inputmode="number"
           close-button-text="完成"
           hide-on-click-outside
           safe-area-inset-bottom
@@ -53,8 +52,7 @@
           readonly
           clickable
           required
-          error
-          name="类型"
+          name="myClass"
           label="类型"
           :value="value2"
           placeholder="选择类型"
@@ -71,7 +69,7 @@
       <!--    备注框⬇️-->
       <van-field
           v-model="remark"
-          name="备注"
+          name="myRemark"
           label="备注"
           placeholder="备注"
       />
@@ -90,10 +88,11 @@ export default {
   name: "Record",
   data() {
     return {
-      radio: '支出',
+      radio: '-',
       value: '',
       value2: '',
       money: '',
+      money1: '',
       showCalendar: false,
       remark: '',
       show: false,
@@ -107,18 +106,31 @@ export default {
       this.showCalendar = false;
     },
     onSubmit(values) {
-      console.log('submit', values);
-    },
-    onInput(value) {
-      console.log(value)
-    },
-    onDelete() {
-      console.log('删除')
+      if (this.value && this.money && this.value2) {
+        this.$store.commit('createValue', values)
+        this.$toast.success('记录成功')
+        this.money = ''
+        this.remark = ''
+      } else {
+        this.$toast.fail('未填写完成')
+      }
     },
     onConfirm2(value) {
       this.value2 = value;
       this.showPicker = false;
     },
+    onInput(value) {
+      if (this.money1.indexOf('.') >= 0 && value === '.') {
+        return
+      }
+      if (this.money1.length === 16) {
+        return
+      }
+      this.money1 += value
+    },
+    onDelete() {
+      this.money1 = this.money1.slice(0, -1)
+    }
   },
   computed: {
     mindate() {
