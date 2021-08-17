@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Record from '@/views/Record.vue'
 import Detail from '@/views/Detail.vue'
-import Statistics from '@/views/Statistics.vue'
+import Setting from '@/views/Setting.vue'
 
 Vue.use(VueRouter)
 
@@ -20,8 +20,8 @@ const routes: Array<RouteConfig> = [
     component:Detail
   },
   {
-    path:'/statistics',
-    component:Statistics
+    path:'/setting',
+    component:Setting
   }
 ]
 

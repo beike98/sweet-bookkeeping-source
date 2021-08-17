@@ -2,7 +2,7 @@
   <van-tabbar route>
     <van-tabbar-item replace to="/record" icon="gold-coin-o">记账</van-tabbar-item>
     <van-tabbar-item replace to="/detail" icon="orders-o">明细</van-tabbar-item>
-    <van-tabbar-item replace to="/statistics" icon="bar-chart-o">报告</van-tabbar-item>
+    <van-tabbar-item replace to="/Setting" icon="setting-o">设置</van-tabbar-item>
   </van-tabbar>
 </template>
 
