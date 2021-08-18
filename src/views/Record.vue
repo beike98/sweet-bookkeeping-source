@@ -69,7 +69,7 @@
       <van-popup v-model="showPicker" round position="bottom">
         <van-picker
             show-toolbar
-            :columns="columns"
+            :columns="tags"
             @cancel="showPicker = false"
             @confirm="onConfirm2"
         />
@@ -105,7 +105,6 @@ export default {
       remark: '',
       show: false,
       showPicker: false,
-      columns: ['吃饭', '衣服', '美容', '电子产品', '交通', '房租', '电话费', '工资'],
     };
   },
   methods: {
@@ -144,8 +143,11 @@ export default {
     mindate() {
       const date = dayjs().subtract(7, 'day')
       return new Date(date.toString())
+    },
+    tags(){
+      return this.$store.state.tagList
     }
-  }
+  },
 }
 </script>
 

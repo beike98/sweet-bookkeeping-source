@@ -1,20 +1,19 @@
 <template>
   <div>
-    <div>
-      <ul>
-        <li v-for="(value,name,index) in result" :key="index">
-          <div class="title">{{ name }}</div>
-          <div>
-            <ul>
-              <li v-for="(item,index) in value" :key="index" class="item">
-                <span>{{ item.myClass }}({{ item.myRemark }})</span>
-                <span class="money">{{ item.myType }}{{ item.myMoney }}</span>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <ul v-if="Object.keys(result).length!==0">
+      <li v-for="(value,name,index) in result" :key="index">
+        <div class="title">{{ name }}</div>
+        <div>
+          <ul>
+            <li v-for="(item,index) in value" :key="index" class="item">
+              {{ item.myClass }}<span class="remark">{{ item.myRemark }}</span>
+              <span class="money">{{ item.myType }}{{ item.myMoney }}</span>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <div v-else class="else">暂时没有记录哦～</div>
   </div>
 </template>
 
@@ -66,5 +65,17 @@ export default {
 .money {
   display: inline-block;
   float: right;
+}
+
+.else {
+  margin-top: 80px;
+  text-align: center;
+  color: #c8c9cc;
+}
+
+.remark {
+  color: #123456;
+  padding-left: 5px;
+  font-size: 14px;
 }
 </style>
