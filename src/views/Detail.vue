@@ -1,64 +1,51 @@
 <template>
   <div>
-    <van-cell title="选择日期区间" :value="date" @click="show = true"/>
-    <van-calendar v-model="show" type="range" @confirm="onConfirm" allow-same-day/>
-    <div style="margin-top: 10px">
-      <div class="title">
-        <van-row>
-          <van-col span="1"></van-col>
-          <van-col span="9">2021/8/17</van-col>
-          <van-col span="9"></van-col>
-          <van-col span="5">-1,111</van-col>
-        </van-row>
-      </div>
-      <div class="item">
-        <van-row>
-          <van-col span="1"></van-col>
-          <van-col span="9">吃饭（满汉全席）</van-col>
-          <van-col span="10"></van-col>
-          <van-col span="4">-1,111</van-col>
-        </van-row>
-      </div>
-      <div class="item">
-        <van-row>
-          <van-col span="1"></van-col>
-          <van-col span="9">吃饭（满汉全席）</van-col>
-          <van-col span="10"></van-col>
-          <van-col span="4">-1,111</van-col>
-        </van-row>
-      </div>
-      <div class="item">
-        <van-row>
-          <van-col span="1"></van-col>
-          <van-col span="9">吃饭（满汉全席）</van-col>
-          <van-col span="10"></van-col>
-          <van-col span="4">-1,111</van-col>
-        </van-row>
-      </div>
+    <div>
+      <ul>
+        <li v-for="(value,name,index) in result" :key="index">
+          <div class="title">{{ name }}</div>
+          <div>
+            <ul>
+              <li v-for="(item,index) in value" :key="index" class="item">
+                <span>{{ item.myClass }}({{ item.myRemark }})</span>
+                <span class="money">{{ item.myType }}{{ item.myMoney }}</span>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
-    {{this.$store.state.valueList}}
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
+
 export default {
   name: "Detail",
-  data() {
-    return {
-      date: '',
-      show: false,
-    };
-  },
-  methods: {
-    formatDate(date) {
-      return `${date.getYear() + 1900}/${date.getMonth() + 1}/${date.getDate()}`;
+  computed: {
+    values() {
+      return this.$store.state.valueList
     },
-    onConfirm(date) {
-      const [start, end] = date;
-      this.show = false;
-      this.date = `${this.formatDate(start)} - ${this.formatDate(end)}`;
-    },
+    result() {
+      const myValues = this.values
+      const values = myValues.sort((a, b) => {
+        return dayjs(b.myDate).valueOf() - dayjs(a.myDate).valueOf()
+      })
+      const hashTable = {}
+      for (let i = 0; i < values.length; i++) {
+        const date = values[i].myDate
+        hashTable[date] = hashTable[date] || []
+        /* 将date作为hashTable的key，往里面push每一项value值。
+        如果遇到date相同，那就push到相同的key里面。 */
+        hashTable[date].push(values[i])
+      }
+      return hashTable
+    }
   },
+  beforeCreate() {
+    this.$store.commit('fetchValue')
+  }
 }
 </script>
 
@@ -68,10 +55,16 @@ export default {
   height: 40px;
   font-size: 20px;
   line-height: 40px;
+  padding-left: 10px;
 }
 
 .item {
   border-bottom: 1px solid #f1f1f1;
-  padding: 2px;
+  padding: 8px 15px;
+}
+
+.money {
+  display: inline-block;
+  float: right;
 }
 </style>

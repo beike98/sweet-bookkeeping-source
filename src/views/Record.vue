@@ -20,7 +20,14 @@
           placeholder="点击选择日期"
           @click="showCalendar = true"
       />
-      <van-calendar v-model="showCalendar" :min-date="mindate" @confirm="onConfirm"/>
+      <van-calendar
+          v-model="showCalendar"
+          :min-date="mindate"
+          @confirm="onConfirm"
+          poppable
+          safe-area-inset-bottom
+          close-on-click-overlay
+      />
       <!--    金额框⬇️-->
       <van-cell-group>
         <van-field
@@ -43,6 +50,7 @@
           close-button-text="完成"
           hide-on-click-outside
           safe-area-inset-bottom
+          transition
           @blur="show = false"
           @input="onInput"
           @delete="onDelete"
@@ -102,7 +110,7 @@ export default {
   },
   methods: {
     onConfirm(date) {
-      this.value = `${date.getMonth() + 1}/${date.getDate()}`;
+      this.value = `${date.getYear()+1900}/${date.getMonth() + 1}/${date.getDate()}`;
       this.showCalendar = false;
     },
     onSubmit(values) {
