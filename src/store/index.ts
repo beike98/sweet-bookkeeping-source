@@ -39,6 +39,7 @@ export const store = new Vuex.Store({
       localStorage.setItem('tagList',JSON.stringify(state.tagList))
     },
     fetchTag(state){
+      store.commit('saveTag')
       state.tagList = JSON.parse(localStorage.getItem('tagList') || '[]')
     },
     removeTag(state,index){

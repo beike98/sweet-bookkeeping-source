@@ -113,10 +113,10 @@ export default {
       this.showCalendar = false;
     },
     onSubmit(values) {
-      if (this.value && this.money && this.value2) {
+      if (this.value && this.money1 && this.value2) {
         this.$store.commit('createValue', values)
         this.$toast.success('记录成功')
-        this.money = ''
+        this.money1 = ''
         this.remark = ''
       } else {
         this.$toast.fail('未填写完成')
@@ -148,6 +148,9 @@ export default {
       return this.$store.state.tagList
     }
   },
+  beforeCreate() {
+    this.$store.commit('fetchTag')
+  }
 }
 </script>
 
