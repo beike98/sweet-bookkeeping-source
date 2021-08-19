@@ -106,10 +106,10 @@ export default {
       for(let i in this.result){
         totalArr = this.result[i]
         for(let i = 0; i< totalArr.length; i++){
-          total+=parseFloat(totalArr[i].myType + totalArr[i].myMoney)
+          total+=(parseInt(totalArr[i].myType + ((totalArr[i].myMoney)*1000000000)))
         }
       }
-      return total
+      return total/1000000000
     }
   },
   beforeCreate() {

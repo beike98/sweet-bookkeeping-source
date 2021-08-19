@@ -132,7 +132,7 @@ export default {
       if (this.myMoney.indexOf('.') >= 0 && value === '.') {
         return
       }
-      if (this.myMoney.length === 16) {
+      if (this.myMoney.length === 10) {
         return
       }
       this.myMoney += value
