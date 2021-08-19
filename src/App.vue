@@ -10,3 +10,8 @@ export default {
   components: {Tabbar}
 }
 </script>
+<style>
+body{
+  background: #f7f8fa;
+}
+</style>

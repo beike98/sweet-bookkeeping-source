@@ -15,7 +15,7 @@
           readonly
           required
           name="myDate"
-          :value="value"
+          :value="myDate"
           label="日期"
           placeholder="点击选择日期"
           @click="showCalendar = true"
@@ -23,6 +23,7 @@
       <van-calendar
           v-model="showCalendar"
           :min-date="mindate"
+          :max-date="maxdate"
           @confirm="onConfirm"
           poppable
           safe-area-inset-bottom
@@ -35,7 +36,7 @@
             @touchstart.native.stop="show = true"
             name="myMoney"
             label="金额"
-            :value="money1"
+            :value="myMoney"
             placeholder="请输入金额"
             required
             clearable
@@ -62,7 +63,7 @@
           required
           name="myClass"
           label="类型"
-          :value="value2"
+          :value="myValue"
           placeholder="选择类型"
           @click="showPicker = true"
       />
@@ -76,7 +77,7 @@
       </van-popup>
       <!--    备注框⬇️-->
       <van-field
-          v-model="remark"
+          v-model="myRemark"
           name="myRemark"
           label="备注"
           placeholder="备注"
@@ -97,52 +98,56 @@ export default {
   data() {
     return {
       radio: '-',
-      value: '',
-      value2: '',
+      myValue: '',
       money: '',
-      money1: '',
-      showCalendar: false,
-      remark: '',
+      myMoney: '',
+      myDate:'',
+      myRemark: '',
       show: false,
       showPicker: false,
+      showCalendar: false
     };
   },
   methods: {
     onConfirm(date) {
-      this.value = `${date.getYear()+1900}/${date.getMonth() + 1}/${date.getDate()}`;
+      this.myDate = `${date.getYear()+1900}/${date.getMonth() + 1}/${date.getDate()}`;
       this.showCalendar = false;
     },
     onSubmit(values) {
-      if (this.value && this.money1 && this.value2) {
+      if (this.myDate && this.myMoney && this.myValue) {
         this.$store.commit('createValue', values)
         this.$toast.success('记录成功')
-        this.money1 = ''
-        this.remark = ''
+        this.myMoney = ''
+        this.myRemark = ''
+        this.myValue = ''
       } else {
         this.$toast.fail('未填写完成')
       }
     },
     onConfirm2(value) {
-      this.value2 = value;
+      this.myValue = value;
       this.showPicker = false;
     },
     onInput(value) {
-      if (this.money1.indexOf('.') >= 0 && value === '.') {
+      if (this.myMoney.indexOf('.') >= 0 && value === '.') {
         return
       }
-      if (this.money1.length === 16) {
+      if (this.myMoney.length === 16) {
         return
       }
-      this.money1 += value
+      this.myMoney += value
     },
     onDelete() {
-      this.money1 = this.money1.slice(0, -1)
+      this.myMoney = this.myMoney.slice(0, -1)
     }
   },
   computed: {
     mindate() {
-      const date = dayjs().subtract(7, 'day')
+      const date = dayjs().subtract(1, 'month')
       return new Date(date.toString())
+    },
+    maxdate() {
+      return new Date()
     },
     tags(){
       return this.$store.state.tagList
