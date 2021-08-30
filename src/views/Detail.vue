@@ -69,8 +69,7 @@ export default {
       this.show = true;
     },
     onConfirm(date) {
-      const title = `${date.getYear() + 1900}/${date.getMonth() + 1}`;
-      this.title = title;
+      this.title = `${date.getYear() + 1900}/${date.getMonth() + 1}`;
       this.show = false;
     },
     onCancel() {
@@ -109,7 +108,7 @@ export default {
           total+=(parseInt(totalArr[i].myType + ((totalArr[i].myMoney)*1000000000)))
         }
       }
-      return total/1000000000
+      return (total/1000000000).toFixed(2)
     }
   },
   beforeCreate() {

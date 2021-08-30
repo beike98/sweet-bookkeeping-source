@@ -1,13 +1,13 @@
 <template>
 <div>
   <router-view></router-view>
-  <Tabbar></Tabbar>
+  <TabBar></TabBar>
 </div>
 </template>
 <script>
-import Tabbar from "@/components/Tabbar";
+import TabBar from "@/components/TabBar";
 export default {
-  components: {Tabbar}
+  components: {TabBar}
 }
 </script>
 <style>
