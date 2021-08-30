@@ -88,18 +88,18 @@
       </div>
     </van-form>
     <div class="weather">
-      <Weather></Weather>
+      <Essay></Essay>
     </div>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
-import Weather from "@/components/Weather";
+import Essay from "@/components/Essay";
 
 export default {
   name: "Record",
-  components: {Weather},
+  components: {Essay},
   data() {
     return {
       radio: '-',
@@ -171,6 +171,6 @@ export default {
   transform: translateX(-50%)
 }
 .weather {
-  margin-top:80px
+  margin-top:180px
 }
 </style>

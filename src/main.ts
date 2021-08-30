@@ -4,9 +4,10 @@ import router from './router'
 import {store} from './store'
 import Vant from 'vant';
 import 'vant/lib/index.css';
+import Axios from 'axios'
 
 Vue.config.productionTip = false
-
+Vue.prototype.$axios = Axios
 Vue.use(Vant);
 
 new Vue({
