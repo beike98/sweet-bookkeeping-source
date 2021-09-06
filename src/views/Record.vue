@@ -87,19 +87,14 @@
         <van-button round block type="info" native-type="submit">确定</van-button>
       </div>
     </van-form>
-    <div class="weather">
-      <Essay></Essay>
-    </div>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
-import Essay from "@/components/Essay";
 
 export default {
   name: "Record",
-  components: {Essay},
   data() {
     return {
       radio: '-',
@@ -169,8 +164,5 @@ export default {
   position: absolute;
   left: 50%;
   transform: translateX(-50%)
-}
-.weather {
-  margin-top:180px
 }
 </style>
