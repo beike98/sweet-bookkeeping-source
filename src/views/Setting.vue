@@ -48,7 +48,7 @@ export default {
     },
     addTag() {
       const newTag = prompt("请输入新标签名称");
-      if (newTag !== "") {
+      if (newTag !== "" && newTag !== null) {
         this.$store.commit("createTag", newTag);
       }
     },
